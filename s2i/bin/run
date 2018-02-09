@@ -1,0 +1,11 @@
+#!/bin/bash -e
+#
+# S2I run script for the 'angular-httpd24' image.
+# The run script executes the server that runs your application.
+#
+# For more information see the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# Just run the httpd run script
+exec /usr/libexec/s2i/run-httpd

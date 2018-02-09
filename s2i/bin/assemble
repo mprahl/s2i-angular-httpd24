@@ -1,0 +1,32 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'angular-httpd24' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 'angular-httpd24' assemble script is executed with the '-h' flag, print the usage.
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+echo "---> Running the httpd-24 assemble script..."
+/usr/libexec/s2i/assemble-httpd
+echo "---> Done running the httpd-24 assemble script"
+
+# The base image already copied the source files the home directory,
+# so we can skip that step
+echo "---> Installing the NPM dependencies (including dev)"
+scl enable rh-nodejs8 'npm install'
+scl enable rh-nodejs8 'npm install --only=dev'
+
+echo "---> Building the Angular application with the 'prod' target and '$NG_ENVIRONMENT' environment"
+scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --target=production --environment=$NG_ENVIRONMENT"
+
+echo "---> Installing the application"
+# Change the document root to be ${HTTPD_APP_ROOT}/src/dist, which is where
+# the Angular prod build is
+sed -i -e "s%^DocumentRoot \"${HTTPD_APP_ROOT}/src\"%DocumentRoot \"${HTTPD_APP_ROOT}/src/dist\"%" ${HTTPD_MAIN_CONF_PATH}/httpd.conf
+sed -i -e "s%/var/www%${HTTPD_APP_ROOT}/src%" /etc/httpd/conf.d/angular.conf
