@@ -32,6 +32,8 @@ maintainer="Matt Prahl <mprahl@redhat.com>" \
 USER 0
 # Copy all the files the container needs
 COPY ./root/ /
+# Set the directory location to whatever is default in the httpd image
+RUN sed -i -e "s%/var/www%${HTTPD_APP_ROOT}/src%" /etc/httpd/conf.d/angular.conf
 # Postfix all the httpd S2I files with `httpd` so they don't get overwritten
 RUN for file in /usr/libexec/s2i/*; do cp -- "$file" "$file-httpd"; done
 # Copy the S2I scripts
