@@ -17,6 +17,11 @@ echo "---> Running the httpd-24 assemble script..."
 /usr/libexec/s2i/assemble-httpd
 echo "---> Done running the httpd-24 assemble script"
 
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts (node_modules)"
+  mv /tmp/artifacts/. ./
+fi
+
 # The base image already copied the source files the home directory,
 # so we can skip that step
 echo "---> Installing the NPM dependencies (including dev)"

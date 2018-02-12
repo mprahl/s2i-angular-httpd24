@@ -3,6 +3,9 @@
 
 This repository contains the source for building Angular applications based on
 the official httpd24 CentOS and Red Hat images using source-to-image (S2I).
+This image supports incremental builds by reusing the `node_modules` folder
+between builds. To use this, you must enable incremental builds in your build
+configuration.
 
 For more information about using these images with OpenShift, please see the
 official OpenShift documentation.
