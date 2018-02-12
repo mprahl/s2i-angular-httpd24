@@ -58,6 +58,7 @@ This repository contains an Angular demo app produced from
 for testing purposes. To build a Docker image with this demo app, run:
 
 ```bash
-$ sudo s2i build https://github.com/mprahl/s2i-angular-httpd24 --context-dir=test/test-app/ mprahl/s2i-angular-httpd24 angular-demo-app
+$ sudo s2i build https://github.com/mprahl/s2i-angular-httpd24 \
+    --context-dir=test/test-app/ mprahl/s2i-angular-httpd24 angular-demo-app
 $ sudo docker run -p 8080:8080 angular-demo-app
 ```
