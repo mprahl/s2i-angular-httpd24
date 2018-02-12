@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ImageStream
+metadata:
+  name: s2i-angular-httpd24
+  creationTimestamp: null
+  annotations:
+    openshift.io/display-name: Angular
+spec:
+  tags:
+    - name: latest
+      annotations:
+        openshift.io/display-name: Angular
+        description: >-
+          Build and run Angular 2+ apps based on the official
+          centos/httpd-24-centos7 image. For more information about using this
+          builder image, see https://github.com/mprahl/s2i-angular-httpd24.
+        iconClass: icon-js
+        tags: 'builder,angular,javascript' 
+        supports: 'angular' 
+      from:
+        kind: DockerImage
+        name: 'mprahl/s2i-angular-httpd24:latest'

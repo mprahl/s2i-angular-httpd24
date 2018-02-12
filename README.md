@@ -65,3 +65,29 @@ $ sudo s2i build https://github.com/mprahl/s2i-angular-httpd24 \
     --context-dir=test/test-app/ mprahl/s2i-angular-httpd24 angular-demo-app
 $ sudo docker run -p 8080:8080 angular-demo-app
 ```
+
+## OpenShift
+
+To use the S2I image within OpenShift, you must create an image stream
+in your project. To do this, run:
+
+```bash
+$ oc create -f s2i-angular-httpd24.yml
+```
+
+Alternatively, if you'd prefer to have the OpenShift image stream available
+globally, you can create the image stream in the `openshift` namespace. To do
+this, run:
+
+```bash
+$ oc create -f s2i-angular-httpd24.yml -n openshift
+```
+
+To view the newly created image stream, run:
+
+```bash
+$ oc describe imagestream s2i-angular-httpd24
+```
+
+The builder image will now appear as "Angular" under the category "JavaScript"
+in the OpenShift UI.
