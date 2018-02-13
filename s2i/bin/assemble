@@ -25,11 +25,12 @@ fi
 # The base image already copied the source files the home directory,
 # so we can skip that step
 echo "---> Installing the NPM dependencies (including dev)"
-scl enable rh-nodejs8 'npm install'
-scl enable rh-nodejs8 'npm install --only=dev'
+# Redirect std
+scl enable rh-nodejs8 'npm install 2>&1'
+scl enable rh-nodejs8 'npm install --only=dev 2>&1'
 
 echo "---> Building and installing the Angular application with the 'prod' target and '$NG_ENVIRONMENT' environment"
-scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --target=production --environment=$NG_ENVIRONMENT"
+scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --target=production --environment=$NG_ENVIRONMENT 2>&1"
 # Change the document root to be ${HTTPD_APP_ROOT}/src/dist, which is where
 # the Angular prod build is
 sed -i -e "s%^DocumentRoot \"${HTTPD_APP_ROOT}/src\"%DocumentRoot \"${HTTPD_APP_ROOT}/src/dist\"%" ${HTTPD_MAIN_CONF_PATH}/httpd.conf
