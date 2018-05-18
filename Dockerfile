@@ -15,7 +15,7 @@ ENV NODEJS_VERSION=8 \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH
 
 ENV NAME=angular \
-    NG_ENVIRONMENT=prod \
+    NG_CONFIG=production \
     NODE_ENV=production \
     NPM_CONFIG_LOGLEVEL=info
 

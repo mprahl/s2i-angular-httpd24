@@ -7,6 +7,8 @@ This image supports incremental builds by reusing the `node_modules` folder
 between builds. To use this, you must enable incremental builds in your build
 configuration.
 
+For building Angular 2-5 apps, use the `angular5` branch instead.
+
 For more information about using these images with OpenShift, please see the
 official OpenShift documentation.
 
@@ -14,8 +16,8 @@ official OpenShift documentation.
 
 The following configuration environment variables are specific to this image:
 
-* **NG_ENVIRONMENT** - the Angular environment to pass to `ng build`. This
-    defaults to `prod`.
+* **NG_CONFIG** - the Angular configuration to pass to `ng build`. This
+    defaults to `production`.
 * **NODE_ENV** - this defaults to `production`.
 * **NPM_CONFIG_LOGLEVEL** - this defaults to `info`.
 

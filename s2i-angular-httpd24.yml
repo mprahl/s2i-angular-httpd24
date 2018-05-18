@@ -12,7 +12,7 @@ spec:
       annotations:
         openshift.io/display-name: Angular
         description: >-
-          Build and run Angular 2+ apps based on the official
+          Build and run Angular 6+ apps based on the official
           centos/httpd-24-centos7 image. For more information about using this
           builder image, see https://github.com/mprahl/s2i-angular-httpd24.
         iconClass: icon-js

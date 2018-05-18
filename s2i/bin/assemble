@@ -28,8 +28,8 @@ echo "---> Installing the NPM dependencies (including dev)"
 scl enable rh-nodejs8 'npm install'
 scl enable rh-nodejs8 'npm install --only=dev'
 
-echo "---> Building and installing the Angular application with the 'production' target and '$NG_ENVIRONMENT' environment"
-scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --target=production --environment=$NG_ENVIRONMENT"
+echo "---> Building and installing the Angular application with the '$NG_CONFIG' configuration"
+scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --configuration=$NG_CONFIG"
 # Change the document root to be ${HTTPD_APP_ROOT}/src/dist, which is where
 # the Angular prod build is
 sed -i -e "s%^DocumentRoot \"${HTTPD_APP_ROOT}/src\"%DocumentRoot \"${HTTPD_APP_ROOT}/src/dist\"%" ${HTTPD_MAIN_CONF_PATH}/httpd.conf
