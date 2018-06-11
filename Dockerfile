@@ -42,6 +42,11 @@ RUN sed -i -e "s%/var/www%${HTTPD_APP_ROOT}/src%" /etc/httpd/conf.d/angular.conf
 RUN for file in /usr/libexec/s2i/*; do cp -- "$file" "$file-httpd"; done
 # Copy the S2I scripts
 COPY ./s2i/bin/ /usr/libexec/s2i
+# Create ${HTTPD_APP_ROOT}/httpd-ssl and give it 777 rights so that at run time,
+# a pod in OpenShift can succesfully run the script that copies the SSL
+# certificates from the application source directory to
+# ${HTTPD_APP_ROOT}/httpd-ssl.
+RUN mkdir -p ${HTTPD_APP_ROOT}/httpd-ssl && chmod a+rwx ${HTTPD_APP_ROOT}/httpd-ssl
 
 # Install NPM
 RUN yum install -y --setopt=tsflags=nodocs yum-config-manager centos-release-scl && \
