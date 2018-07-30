@@ -49,8 +49,8 @@ COPY ./s2i/bin/ /usr/libexec/s2i
 # Install NPM
 RUN yum install -y --setopt=tsflags=nodocs yum-config-manager centos-release-scl && \
     yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-    yum install -y --setopt=tsflags=nodocs rh-nodejs8 rh-nodejs8-npm && \
-    rpm -V rh-nodejs8 rh-nodejs8-npm && \
+    yum install -y --setopt=tsflags=nodocs rh-nodejs8 rh-nodejs8-npm git && \
+    rpm -V rh-nodejs8 rh-nodejs8-npm git && \
     yum clean all -y
 
 # This default user is created in the base image
