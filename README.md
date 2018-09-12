@@ -23,6 +23,10 @@ The following configuration environment variables are specific to this image:
 
 All other environment variables from the base image can also be overriden.
 
+Additionally, you can mount Angular environment files in `/tmp/ng-environments/`
+and they will be copied to `./src/environments/`. This is useful if you'd like
+to override the environment files stored in source.
+
 ## Installation
 
 To build an Angular Docker image, choose either the CentOS or RHEL based image.

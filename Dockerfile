@@ -32,6 +32,8 @@ LABEL summary="$SUMMARY" \
 
 # Become root to install packages (was dropped to 1001 in the base image)
 USER 0
+# Make a directory to place custom Angular environments
+RUN mkdir /tmp/ng-environments
 # Copy all the files the container needs
 COPY ./root/ /
 # Set the directory location to whatever is default in the httpd image

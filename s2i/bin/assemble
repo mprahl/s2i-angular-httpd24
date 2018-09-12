@@ -22,6 +22,11 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
   mv /tmp/artifacts/. ./
 fi
 
+if [ "$(ls /tmp/ng-environments/ 2>/dev/null)" ]; then
+  echo "---> Copying custom Angular environment files"
+  cp -pf /tmp/ng-environments/* ./src/environments/
+fi
+
 # The base image already copied the source files the home directory,
 # so we can skip that step
 echo "---> Installing the NPM dependencies (including dev)"
