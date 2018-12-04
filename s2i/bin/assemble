@@ -34,7 +34,7 @@ scl enable rh-nodejs8 'npm install'
 scl enable rh-nodejs8 'npm install --only=dev'
 
 echo "---> Building and installing the Angular application with the '$NG_CONFIG' configuration"
-scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --configuration=$NG_CONFIG"
+scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --configuration=$NG_CONFIG --output-path dist"
 # Delete all source files since they are no longer needed
 find -maxdepth 1 -not -name "dist" -not -name "." -exec rm -rf {} \;
 # Move the build files to the source root
