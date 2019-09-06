@@ -70,6 +70,12 @@ $ sudo s2i build https://github.com/mprahl/s2i-angular-httpd24 \
 $ sudo docker run -p 8080:8080 angular-demo-app
 ```
 
+You can also run the test script with the following:
+```bash
+$ sudo docker build -t angular-httpd24-candidate .
+$ sudo IMAGE_NAME=angular-httpd24-candidate test/run
+```
+
 ## OpenShift
 
 To use the S2I image within OpenShift, you must create an image stream
