@@ -15,6 +15,11 @@ The following configuration environment variables are specific to this image:
     defaults to `production`.
 * **NODE_ENV** - this defaults to `production`.
 * **NPM_CONFIG_LOGLEVEL** - this defaults to `info`.
+* **NPM_MIRROR** - an NPM registry mirror to use instead of the official NPM
+    registry. Please note that if the mirror uses a certificate signed by an
+    untrusted CA, you'll need to mount the certificate of the untrusted CA in
+    the build container, and use the `npm_config_cafile` environment variable
+    to point to the mounted CA certificate.
 
 All other environment variables from the base image can also be overriden.
 

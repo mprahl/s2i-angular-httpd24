@@ -22,6 +22,12 @@ if [ "$(ls /tmp/ng-environments/ 2>/dev/null)" ]; then
   cp -pf /tmp/ng-environments/* ./src/environments/
 fi
 
+# Change the npm registry mirror if provided. This variable matches the
+# one used in s2i-nodejs.
+if [ -n "$NPM_MIRROR" ]; then
+  scl enable rh-nodejs8 'npm config set registry $NPM_MIRROR'
+fi
+
 # The base image already copied the source files the home directory,
 # so we can skip that step
 echo "---> Installing the NPM dependencies (including dev)"
