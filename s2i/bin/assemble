@@ -42,5 +42,19 @@ mv dist/* .
 # Remove the now empty dist directory
 rmdir dist
 
+# Taken from https://github.com/sclorg/s2i-nodejs-container/blob/master/8/s2i/bin/assemble#L93
+# Clear the npm's cache and tmp directories only if they are not mounted volumes
+NPM_CACHE=$(scl enable rh-nodejs8 'npm config get cache')
+if ! mountpoint $NPM_CACHE; then
+  echo "---> Cleaning the npm cache $NPM_CACHE"
+  #As of npm@5 even the 'npm cache clean --force' does not fully remove the cache directory
+  rm $NPM_CACHE* -rf
+fi
+NPM_TMP=$(scl enable rh-nodejs8 'npm config get tmp')
+if ! mountpoint $NPM_TMP; then
+  echo "---> Cleaning the $NPM_TMP/npm-*"
+  rm -rf $NPM_TMP/npm-*
+fi
+
 # Fix source directory permissions
 fix-permissions ./
