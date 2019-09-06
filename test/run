@@ -55,7 +55,7 @@ container_port() {
 }
 
 run_s2i_build() {
-  s2i build --incremental=true ${s2i_args} file://${test_dir}/test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
+  s2i build ${s2i_args} file://${test_dir}/test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
 }
 
 prepare() {
