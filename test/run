@@ -55,7 +55,7 @@ container_port() {
 }
 
 run_s2i_build() {
-  s2i build ${s2i_args} file://${test_dir}/test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
+  s2i build ${s2i_args} --incremental=true file://${test_dir}/test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
 }
 
 prepare() {
@@ -156,4 +156,3 @@ test_connection
 check_result $?
 
 cleanup
-

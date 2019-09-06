@@ -17,6 +17,11 @@ echo "---> Running the httpd-24 assemble script..."
 /usr/libexec/s2i/assemble-httpd
 echo "---> Done running the httpd-24 assemble script"
 
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts (node_modules)"
+  mv /tmp/artifacts/node_modules ./
+fi
+
 if [ "$(ls /tmp/ng-environments/ 2>/dev/null)" ]; then
   echo "---> Copying custom Angular environment files"
   cp -pf /tmp/ng-environments/* ./src/environments/
@@ -37,7 +42,11 @@ scl enable rh-nodejs8 'npm install --only=dev'
 echo "---> Building and installing the Angular application with the '$NG_CONFIG' configuration"
 scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --configuration=$NG_CONFIG --output-path dist"
 # Delete all source files since they are no longer needed
-find -maxdepth 1 -not -name "dist" -not -name "." -exec rm -rf {} \;
+find -maxdepth 1 -not -name "dist" -not -name "." -not -name "node_modules" -exec rm -rf {} \;
+# Delete node_modules if the user has elected to do so
+if [ "$DISCARD_NODE_MODULES" = true ]; then
+  rm -rf node_modules
+fi
 # Move the build files to the source root
 mv dist/* .
 # Remove the now empty dist directory
