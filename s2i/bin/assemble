@@ -25,17 +25,17 @@ fi
 # Change the npm registry mirror if provided. This variable matches the
 # one used in s2i-nodejs.
 if [ -n "$NPM_MIRROR" ]; then
-  scl enable rh-nodejs8 'npm config set registry $NPM_MIRROR'
+  scl enable rh-nodejs10 'npm config set registry $NPM_MIRROR'
 fi
 
 # The base image already copied the source files the home directory,
 # so we can skip that step
 echo "---> Installing the NPM dependencies (including dev)"
-scl enable rh-nodejs8 'npm install'
-scl enable rh-nodejs8 'npm install --only=dev'
+scl enable rh-nodejs10 'npm install'
+scl enable rh-nodejs10 'npm install --only=dev'
 
 echo "---> Building and installing the Angular application with the '$NG_CONFIG' configuration"
-scl enable rh-nodejs8 "./node_modules/@angular/cli/bin/ng build --configuration=$NG_CONFIG --output-path dist"
+scl enable rh-nodejs10 "./node_modules/@angular/cli/bin/ng build --configuration=$NG_CONFIG --output-path dist"
 # Delete all source files since they are no longer needed
 find -maxdepth 1 -not -name "dist" -not -name "." -exec rm -rf {} \;
 # Move the build files to the source root
@@ -43,15 +43,16 @@ mv dist/* .
 # Remove the now empty dist directory
 rmdir dist
 
-# Taken from https://github.com/sclorg/s2i-nodejs-container/blob/master/8/s2i/bin/assemble#L93
+# Taken from
+# https://github.com/sclorg/s2i-nodejs-container/blob/ceda3ffc6222256859ce39200edd1ced1758f43e/10/s2i/bin/assemble#L99
 # Clear the npm's cache and tmp directories only if they are not mounted volumes
-NPM_CACHE=$(scl enable rh-nodejs8 'npm config get cache')
+NPM_CACHE=$(scl enable rh-nodejs10 'npm config get cache')
 if ! mountpoint $NPM_CACHE; then
   echo "---> Cleaning the npm cache $NPM_CACHE"
   #As of npm@5 even the 'npm cache clean --force' does not fully remove the cache directory
   rm $NPM_CACHE* -rf
 fi
-NPM_TMP=$(scl enable rh-nodejs8 'npm config get tmp')
+NPM_TMP=$(scl enable rh-nodejs10 'npm config get tmp')
 if ! mountpoint $NPM_TMP; then
   echo "---> Cleaning the $NPM_TMP/npm-*"
   rm -rf $NPM_TMP/npm-*
