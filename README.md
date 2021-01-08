@@ -87,6 +87,12 @@ in your project. To do this, run:
 $ oc create -f s2i-angular-httpd24.yml
 ```
 
+If you'd rather have the image stream point to [quay.io](https://quay.io), then
+run the following instead:
+```bash
+$ oc create -f s2i-angular-httpd24-quay.yml
+```
+
 Alternatively, if you'd prefer to have the OpenShift image stream available
 globally, you can create the image stream in the `openshift` namespace. To do
 this, run:
