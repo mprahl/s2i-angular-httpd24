@@ -10,7 +10,7 @@ Angular is a development platform for building mobile and desktop web \
 applications using Typescript/JavaScript and other languages."
 
 # For Angular 12+, use NODEJS_VERSION=12
-ARG NODEJS_VERSION=10
+ARG NODEJS_VERSION=12
 # Inspired from https://github.com/sclorg/s2i-nodejs-container/blob/master/10/Dockerfile
 ENV NODEJS_VERSION=$NODEJS_VERSION \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
