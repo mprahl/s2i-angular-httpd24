@@ -39,6 +39,11 @@ This image is available on DockerHub. To download it, run:
 $ sudo docker pull docker pull mprahl/s2i-angular-httpd24
 ```
 
+If you are using Angular 12+, you'll need a newer Node.js version:
+```bash
+$ sudo docker pull docker pull mprahl/s2i-angular-httpd24:12
+```
+
 To build your Angular app image with S2I, run:
 
 ```bash

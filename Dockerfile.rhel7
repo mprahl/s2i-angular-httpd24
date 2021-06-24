@@ -9,8 +9,11 @@ building and running Angular web applications. \
 Angular is a development platform for building mobile and desktop web \
 applications using Typescript/JavaScript and other languages."
 
+# For Angular 12+, use NODEJS_VERSION=12
+ARG NODEJS_VERSION=10
+
 # Inspired from https://github.com/sclorg/s2i-nodejs-container/blob/master/10/Dockerfile
-ENV NODEJS_VERSION=10 \
+ENV NODEJS_VERSION=$NODEJS_VERSION \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH
 
@@ -51,8 +54,8 @@ COPY ./s2i/bin/ /usr/libexec/s2i
 # Install NPM
 RUN yum install -y --setopt=tsflags=nodocs yum-config-manager rhel-server-rhscl-7-rpms && \
     yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-    yum install -y --setopt=tsflags=nodocs rh-nodejs10 rh-nodejs10-npm git && \
-    rpm -V rh-nodejs10 rh-nodejs10-npm git && \
+    yum install -y --setopt=tsflags=nodocs "rh-nodejs$NODEJS_VERSION" "rh-nodejs$NODEJS_VERSION-npm" git && \
+    rpm -V "rh-nodejs$NODEJS_VERSION" "rh-nodejs$NODEJS_VERSION-npm" git && \
     yum clean all -y
 
 # This default user is created in the base image
