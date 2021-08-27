@@ -1,5 +1,5 @@
 # s2i-angular-httpd24
-FROM centos/httpd-24-centos7
+FROM quay.io/centos7/httpd-24-centos7
 
 MAINTAINER Matt Prahl <mprahl@redhat.com>
 
